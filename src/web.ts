@@ -7,4 +7,16 @@ export class VideoCropperWeb extends WebPlugin implements VideoCropperPlugin {
     console.log('ECHO', options);
     return options;
   }
+
+  async getContacts(filter: string): Promise<{ results: any[] }>{
+    console.log("filter", filter);
+    return{
+      results: [{
+        firstName: 'Dummy',
+        lastName: 'Entry',
+        telephone: '123456'
+      }]
+    }
+
+  }
 }
