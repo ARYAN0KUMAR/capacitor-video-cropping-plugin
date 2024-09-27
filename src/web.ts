@@ -20,3 +20,5 @@ export class VideoCropperWeb extends WebPlugin implements VideoCropperPlugin {
 
   }
 }
+
+
