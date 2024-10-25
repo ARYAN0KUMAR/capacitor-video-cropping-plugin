@@ -15,6 +15,7 @@ npx cap sync
 
 * [`echo(...)`](#echo)
 * [`getContacts(...)`](#getcontacts)
+* [`cropVideo(...)`](#cropvideo)
 
 </docgen-index>
 
@@ -39,14 +40,29 @@ echo(options: { value: string; }) => Promise<{ value: string; }>
 ### getContacts(...)
 
 ```typescript
-getContacts(filter: string) => Promise<{ results: any[]; }>
+getContacts(options: { filter: string; }) => Promise<{ contacts: any[]; }>
 ```
 
-| Param        | Type                |
-| ------------ | ------------------- |
-| **`filter`** | <code>string</code> |
+| Param         | Type                             |
+| ------------- | -------------------------------- |
+| **`options`** | <code>{ filter: string; }</code> |
 
-**Returns:** <code>Promise&lt;{ results: any[]; }&gt;</code>
+**Returns:** <code>Promise&lt;{ contacts: any[]; }&gt;</code>
+
+--------------------
+
+
+### cropVideo(...)
+
+```typescript
+cropVideo(options: { fileUrl: string; cropX: number; cropY: number; cropWidth: number; cropHeight: number; }) => Promise<{ croppedVideoBlob: string; }>
+```
+
+| Param         | Type                                                                                                   |
+| ------------- | ------------------------------------------------------------------------------------------------------ |
+| **`options`** | <code>{ fileUrl: string; cropX: number; cropY: number; cropWidth: number; cropHeight: number; }</code> |
+
+**Returns:** <code>Promise&lt;{ croppedVideoBlob: string; }&gt;</code>
 
 --------------------
 
