@@ -17,7 +17,6 @@ export class VideoCropperWeb extends WebPlugin implements VideoCropperPlugin {
         telephone: '123456'
       }]
     }
-
   }
 }
 
