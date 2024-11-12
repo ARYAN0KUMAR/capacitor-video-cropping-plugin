@@ -9,3 +9,4 @@ public class VideoCropper {
         return value;
     }
 }
+
