@@ -14,6 +14,8 @@ npx cap sync
 <docgen-index>
 
 * [`cropVideo(...)`](#cropvideo)
+* [`cropImage(...)`](#cropimage)
+* [`convertAndReplaceHEICWithJPG(...)`](#convertandreplaceheicwithjpg)
 
 </docgen-index>
 
@@ -29,6 +31,36 @@ cropVideo(options: { fileUrl: string; cropX: number; cropY: number; cropWidth: n
 | Param         | Type                                                                                                   |
 | ------------- | ------------------------------------------------------------------------------------------------------ |
 | **`options`** | <code>{ fileUrl: string; cropX: number; cropY: number; cropWidth: number; cropHeight: number; }</code> |
+
+**Returns:** <code>Promise&lt;{ outputfileUrl: string; }&gt;</code>
+
+--------------------
+
+
+### cropImage(...)
+
+```typescript
+cropImage(options: { fileUrl: string; cropX: number; cropY: number; cropWidth: number; cropHeight: number; }) => Promise<{ outputfileUrl: string; }>
+```
+
+| Param         | Type                                                                                                   |
+| ------------- | ------------------------------------------------------------------------------------------------------ |
+| **`options`** | <code>{ fileUrl: string; cropX: number; cropY: number; cropWidth: number; cropHeight: number; }</code> |
+
+**Returns:** <code>Promise&lt;{ outputfileUrl: string; }&gt;</code>
+
+--------------------
+
+
+### convertAndReplaceHEICWithJPG(...)
+
+```typescript
+convertAndReplaceHEICWithJPG(options: { filePath: string; }) => Promise<{ outputfileUrl: string; }>
+```
+
+| Param         | Type                               |
+| ------------- | ---------------------------------- |
+| **`options`** | <code>{ filePath: string; }</code> |
 
 **Returns:** <code>Promise&lt;{ outputfileUrl: string; }&gt;</code>
 
