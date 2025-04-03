@@ -9,10 +9,10 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 
 
 import com.arthenica.ffmpegkit.FFmpegKit;
+import com.arthenica.ffmpegkit.FFmpegKit;
 import com.arthenica.ffmpegkit.Session;
 import com.arthenica.ffmpegkit.ReturnCode;
-
-import java.io.File;
+import com.arthenica.ffmpegkit.FFmpegKitConfig;
 import java.util.UUID;
 
 import android.database.Cursor;
@@ -105,19 +105,19 @@ public class VideoCropperPlugin extends Plugin {
                 contentUri, cropWidth, cropHeight, cropX, cropY, outputFilePath);
 
         // Execute FFmpeg command asynchronously
-        FFmpegKit.executeAsync(ffmpegCommand, session -> {
-            ReturnCode returnCode = session.getReturnCode();
-
-            if (ReturnCode.isSuccess(returnCode)) {
-                // File URI for Capacitor
-                Uri outputUri = Uri.fromFile(outputFile);
-                JSObject result = new JSObject();
-                result.put("outputfileUrl", outputUri.toString());
-                call.resolve(result);
-            } else {
-                call.reject("Cropping failed: " + session.getAllLogsAsString());
-            }
-        });
+//        FFmpegKit.executeAsync(ffmpegCommand, session -> {
+//            ReturnCode returnCode = session.getReturnCode();
+//
+//            if (ReturnCode.isSuccess(returnCode)) {
+//                // File URI for Capacitor
+//                Uri outputUri = Uri.fromFile(outputFile);
+//                JSObject result = new JSObject();
+//                result.put("outputfileUrl", outputUri.toString());
+//                call.resolve(result);
+//            } else {
+//                call.reject("Cropping failed: " + session.getAllLogsAsString());
+//            }
+//        });
     }
 
     public static String convertHEICToJPG(Context context, String heicFilePath) throws IOException {
