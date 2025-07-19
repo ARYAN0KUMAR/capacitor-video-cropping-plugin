@@ -101,23 +101,31 @@ public class VideoCropperPlugin extends Plugin {
         //String ffmpegCommand = String.format("-i \"%s\" -vf crop=%d:%d:%d:%d -c:v libx264 \"%s\"",
         //        contentUri, cropWidth, cropHeight, cropX, cropY, outputFilePath);
 
-        String ffmpegCommand = String.format("-i \"%s\" -vf crop=%f:%f:%f:%f \"%s\"",
-                contentUri, cropWidth, cropHeight, cropX, cropY, outputFilePath);
+        // String ffmpegCommand = String.format("-i \"%s\" -vf crop=%f:%f:%f:%f \"%s\"",
+        //         contentUri, cropWidth, cropHeight, cropX, cropY, outputFilePath);
+
+        String ffmpegCommand = String.format(
+                "-y -i \"%s\" -vf crop=%f:%f:%f:%f -c:v libx264 -c:a copy \"%s\"",
+                contentUri,
+                cropWidth, cropHeight,
+                cropX, cropY,
+                outputFilePath
+        );
 
         // Execute FFmpeg command asynchronously
-//        FFmpegKit.executeAsync(ffmpegCommand, session -> {
-//            ReturnCode returnCode = session.getReturnCode();
-//
-//            if (ReturnCode.isSuccess(returnCode)) {
-//                // File URI for Capacitor
-//                Uri outputUri = Uri.fromFile(outputFile);
-//                JSObject result = new JSObject();
-//                result.put("outputfileUrl", outputUri.toString());
-//                call.resolve(result);
-//            } else {
-//                call.reject("Cropping failed: " + session.getAllLogsAsString());
-//            }
-//        });
+       FFmpegKit.executeAsync(ffmpegCommand, session -> {
+           ReturnCode returnCode = session.getReturnCode();
+
+           if (ReturnCode.isSuccess(returnCode)) {
+               // File URI for Capacitor
+               Uri outputUri = Uri.fromFile(outputFile);
+               JSObject result = new JSObject();
+               result.put("outputfileUrl", outputUri.toString());
+               call.resolve(result);
+           } else {
+               call.reject("Cropping failed: " + session.getAllLogsAsString());
+           }
+       });
     }
 
     public static String convertHEICToJPG(Context context, String heicFilePath) throws IOException {
