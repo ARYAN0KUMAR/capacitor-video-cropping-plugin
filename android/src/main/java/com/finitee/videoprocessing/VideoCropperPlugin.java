@@ -30,6 +30,8 @@ import java.io.IOException;
 
 import androidx.annotation.NonNull;
 
+import android.util.Log;
+
 
 @CapacitorPlugin(name = "VideoCropper")
 public class VideoCropperPlugin extends Plugin {
@@ -98,24 +100,34 @@ public class VideoCropperPlugin extends Plugin {
         File outputFile = new File(getContext().getCacheDir(), newFileName);
         String outputFilePath = outputFile.getAbsolutePath();
 
-        //String ffmpegCommand = String.format("-i \"%s\" -vf crop=%d:%d:%d:%d -c:v libx264 \"%s\"",
-        //        contentUri, cropWidth, cropHeight, cropX, cropY, outputFilePath);
+//        String ffmpegCommand = String.format("-i \"%s\" -vf crop=%d:%d:%d:%d -c:v libx264 \"%s\"",
+//                contentUri, cropWidth, cropHeight, cropX, cropY, outputFilePath);
 
-        // String ffmpegCommand = String.format("-i \"%s\" -vf crop=%f:%f:%f:%f \"%s\"",
-        //         contentUri, cropWidth, cropHeight, cropX, cropY, outputFilePath);
+        Log.d("VideoCropPlugin", "Output-Path: " + outputFilePath);
+        Log.d("VideoCropPlugin", "File URL: " + fileUrl);
+        Log.d("VideoCropPlugin", "Content URI: " + contentUri.toString());
 
         String ffmpegCommand = String.format(
-                "-y -i \"%s\" -vf crop=%f:%f:%f:%f -c:v libx264 -c:a copy \"%s\"",
+               // "-y -i \"%s\" -vf crop=%f:%f:%f:%f -c:v libx264 -c:a copy \"%s\"",
+               "-y -i \"%s\" -vf crop=%f:%f:%f:%f -c:v libx264 -crf 28 -preset fast -c:a aac -b:a 128k \"%s\"",
                 contentUri,
                 cropWidth, cropHeight,
                 cropX, cropY,
                 outputFilePath
         );
 
+
+//
+//        String ffmpegCommand = String.format("-i \"%s\" -vf crop=%f:%f:%f:%f \"%s\"",
+//                contentUri, cropWidth, cropHeight, cropX, cropY, outputFilePath);
+
+Log.d("VideoCropPlugin" ,"Cropx: "+ cropX );
+        Log.d("VideoCropPlugin" ,"CropY: "+ cropY );
         // Execute FFmpeg command asynchronously
        FFmpegKit.executeAsync(ffmpegCommand, session -> {
            ReturnCode returnCode = session.getReturnCode();
 
+Log.d("returnCode : " ," "+ returnCode);
            if (ReturnCode.isSuccess(returnCode)) {
                // File URI for Capacitor
                Uri outputUri = Uri.fromFile(outputFile);
@@ -202,8 +214,11 @@ public class VideoCropperPlugin extends Plugin {
         //String ffmpegCommand = String.format("-i \"%s\" -vf crop=%d:%d:%d:%d -c:v libx264 \"%s\"",
         //        contentUri, cropWidth, cropHeight, cropX, cropY, outputFilePath);
 
-        String ffmpegCommand = String.format("-i \"%s\" -vf crop=%f:%f:%f:%f \"%s\"",
-                contentUri, cropWidth, cropHeight, cropX, cropY, outputFilePath);
+        String ffmpegCommand = String.format(
+            "-i \"%s\" -vf crop=%f:%f:%f:%f \"%s\"",
+              //  "-i \"%s\" -vf crop=%f:%f:%f:%f -qscale:v 5 \"%s\"",
+
+            contentUri, cropWidth, cropHeight, cropX, cropY, outputFilePath);
 
         // Execute FFmpeg command asynchronously
         FFmpegKit.executeAsync(ffmpegCommand, session -> {
